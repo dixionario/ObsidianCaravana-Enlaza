@@ -1,0 +1,3614 @@
+/*
+
+This CSS file will be included with your plugin, and
+available in the app when your plugin is enabled.
+
+If your plugin does not need CSS, delete this file.
+
+*/
+
+/* ===== Settings Tab Documentation Link ===== */
+.agent-client-doc-link {
+	padding: 12px 16px;
+	margin-bottom: 16px;
+	background-color: var(--background-secondary);
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--radius-m);
+	font-size: 14px;
+	color: var(--text-muted);
+}
+
+.agent-client-doc-link a {
+	color: var(--text-accent);
+	text-decoration: none;
+}
+
+.agent-client-doc-link a:hover {
+	text-decoration: underline;
+}
+
+/* ===== Settings Tab Custom Agent Block ===== */
+.agent-client-custom-agent {
+	padding: 16px;
+	margin-bottom: 24px;
+	background-color: var(--background-secondary);
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--radius-m);
+}
+
+/* ===== Loading Indicator ===== */
+.agent-client-loading-indicator {
+	display: flex;
+	align-items: center;
+	padding: 16px;
+	margin: 4px 0;
+}
+
+.agent-client-loading-indicator.agent-client-hidden {
+	visibility: hidden;
+}
+
+.agent-client-loading-status {
+	color: var(--text-muted);
+	font-size: var(--font-ui-small);
+	font-style: italic;
+	margin-left: 8px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	min-width: 0;
+}
+
+/* ===== Scroll to Bottom Button ===== */
+.agent-client-scroll-to-bottom {
+	position: sticky;
+	bottom: 4px;
+	left: 50%;
+	transform: translateX(-50%);
+	padding: 6px;
+	border-radius: 50%;
+	background-color: var(--background-primary);
+	z-index: 10;
+}
+
+.agent-client-scroll-to-bottom svg {
+	color: var(--text-muted);
+	transition: color 0.2s ease;
+}
+
+.agent-client-scroll-to-bottom:hover {
+	background-color: var(--background-primary);
+}
+
+.agent-client-scroll-to-bottom:hover svg {
+	color: var(--interactive-accent);
+}
+
+.agent-client-loading-dots {
+	display: grid;
+	grid-template-columns: repeat(3, 4px);
+	grid-template-rows: repeat(3, 5px);
+	gap: 3px;
+	width: 18px;
+	height: 21px;
+	will-change: transform;
+}
+
+.agent-client-loading-dot {
+	width: 4px;
+	height: 5px;
+	background-color: var(--background-modifier-border);
+	border-radius: 50%;
+	animation: dotPulse 1.2s ease-in-out infinite;
+}
+
+.agent-client-loading-dot:nth-child(1) {
+	animation-delay: 0s;
+}
+
+.agent-client-loading-dot:nth-child(2) {
+	animation-delay: 0.15s;
+}
+
+.agent-client-loading-dot:nth-child(3) {
+	animation-delay: 0.3s;
+}
+
+.agent-client-loading-dot:nth-child(4) {
+	animation-delay: 0.9s;
+}
+
+.agent-client-loading-dot:nth-child(5) {
+	animation-delay: 0s;
+}
+
+.agent-client-loading-dot:nth-child(6) {
+	animation-delay: 0.15s;
+}
+
+.agent-client-loading-dot:nth-child(7) {
+	animation-delay: 0.6s;
+}
+
+.agent-client-loading-dot:nth-child(8) {
+	animation-delay: 0.45s;
+}
+
+.agent-client-loading-dot:nth-child(9) {
+	animation-delay: 0.3s;
+}
+
+@keyframes dotPulse {
+	0%,
+	100% {
+		background-color: var(--background-modifier-border);
+	}
+	25% {
+		background-color: var(--interactive-accent);
+	}
+}
+
+/* ===== Inline Lucide Icons (replace emojis) ===== */
+.agent-client-message-tool-call-icon svg,
+.agent-client-collapsible-thought-label-icon svg,
+.agent-client-terminal-renderer-label-icon svg,
+.agent-client-error-overlay-suggestion-icon svg,
+.agent-client-message-plan-label-icon svg {
+	width: 14px;
+	height: 14px;
+	vertical-align: -2px;
+	margin-right: 4px;
+	color: var(--text-muted);
+}
+
+.agent-client-message-plan-entry-icon svg {
+	width: 12px;
+	height: 12px;
+	vertical-align: -2px;
+}
+
+/* ===== Message Content Components ===== */
+
+/* Tool Call */
+.agent-client-message-tool-call {
+	padding: 8px;
+	margin-bottom: 12px;
+	background-color: transparent;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--radius-s);
+	font-size: 0.85em;
+	user-select: text;
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+	word-break: break-word;
+	max-width: 100%;
+}
+
+/*
+ * Cap expanded tool-call height at half the panel so a single big block
+ * (e.g., a 4000-line read) cannot dominate the chat area. Internal scroll
+ * is the safety net; collapsed buttons are excluded via div.* selector.
+ */
+div.agent-client-message-tool-call {
+	max-height: 50vh;
+	overflow-y: auto;
+}
+
+/*
+ * Compact tool-call summary row (collapsed default).
+ * Renders as a single clickable row: [chevron <kind-icon> <title> ………… N lines]
+ * See spec: 04-initiatives/Agent Console/Agent Console Compact Tool Calls.md
+ */
+button.agent-client-message-tool-call-summary {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	width: 100%;
+	padding: 6px 8px;
+	margin-bottom: 12px;
+	font-family: inherit;
+	font-size: 0.85em;
+	font-weight: bold;
+	color: var(--text-normal);
+	background-color: transparent;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--radius-s);
+	text-align: left;
+	cursor: pointer;
+	user-select: text;
+	overflow: hidden;
+	box-shadow: none;
+}
+
+button.agent-client-message-tool-call-summary:hover {
+	background-color: var(--background-modifier-hover);
+}
+
+button.agent-client-message-tool-call-summary:focus-visible {
+	outline: 2px solid var(--interactive-accent);
+	outline-offset: 1px;
+}
+
+.agent-client-message-tool-call-summary-caret {
+	flex-shrink: 0;
+	display: inline-flex;
+	align-items: center;
+	color: var(--text-muted);
+}
+
+.agent-client-message-tool-call-summary-caret svg {
+	width: 14px;
+	height: 14px;
+}
+
+.agent-client-message-tool-call-summary-title {
+	flex: 1;
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.agent-client-message-tool-call-summary-lines {
+	flex-shrink: 0;
+	font-weight: normal;
+	font-size: 0.9em;
+	color: var(--text-muted);
+}
+
+/* When the block is expanded, the header itself becomes the toggle target. */
+.agent-client-message-tool-call-header-clickable {
+	cursor: pointer;
+}
+
+.agent-client-message-tool-call-header-clickable:hover
+	.agent-client-message-tool-call-title-text {
+	color: var(--text-accent);
+}
+
+.agent-client-message-tool-call-title {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	font-weight: bold;
+	margin-bottom: 4px;
+	user-select: text;
+	white-space: nowrap;
+}
+
+.agent-client-message-tool-call-title-text {
+	flex: 1;
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.agent-client-message-tool-call-status-icon {
+	flex-shrink: 0;
+}
+
+.agent-client-message-tool-call-status-icon svg {
+	width: 14px;
+	height: 14px;
+	color: var(--text-muted);
+}
+
+/* Failed status chip (CTC-I05): distinguished by background fill + shape, not
+   hue alone, so it is parseable with red/green color-vision deficiency. This is
+   the at-a-glance "this failed" signal in the collapsed summary row now that
+   failed calls no longer auto-expand. */
+.agent-client-message-tool-call-status-icon.agent-client-status-failed {
+	background: var(--background-modifier-error);
+	border-radius: var(--radius-s);
+	padding: 1px 3px;
+}
+
+.agent-client-message-tool-call-status-icon.agent-client-status-failed svg {
+	color: var(--text-on-accent);
+}
+
+.agent-client-message-tool-call-status-icon.agent-client-status-in_progress svg,
+.agent-client-message-tool-call-status-icon.agent-client-status-pending svg {
+	color: var(--text-muted);
+}
+
+.agent-client-message-tool-call-locations {
+	color: var(--text-muted);
+	user-select: text;
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+	word-break: break-word;
+}
+
+.agent-client-message-tool-call-location {
+	display: block;
+	font-family: var(--font-monospace);
+	font-size: 0.9em;
+}
+
+.agent-client-message-tool-call-command {
+	color: var(--text-muted);
+	margin: 4px 0;
+}
+
+.agent-client-message-tool-call-command code {
+	font-family: var(--font-monospace);
+	font-size: 0.9em;
+}
+
+/* Plan */
+.agent-client-message-plan {
+	padding: 8px;
+	margin: 4px 0;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--radius-s);
+	font-size: 12px;
+	user-select: text;
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+	word-break: break-word;
+	max-width: 100%;
+}
+
+.agent-client-message-plan-title {
+	font-weight: bold;
+	margin-bottom: 4px;
+	user-select: text;
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+	word-break: break-word;
+}
+
+.agent-client-message-plan-entry {
+	margin: 2px 0;
+	padding: 2px 4px;
+	border-left: 2px solid var(--text-muted);
+	user-select: text;
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+	word-break: break-word;
+}
+
+.agent-client-message-plan-entry-icon.agent-client-status-completed {
+	user-select: text;
+}
+
+.agent-client-message-plan-entry-icon.agent-client-status-in_progress {
+	user-select: text;
+}
+
+.agent-client-message-plan-entry-icon.agent-client-status-pending {
+	user-select: text;
+}
+
+/* Plan entry status text styles (for emoji-off mode) */
+.agent-client-message-plan-entry.agent-client-plan-status-completed {
+	text-decoration: line-through;
+	color: var(--text-muted);
+}
+
+.agent-client-message-plan-entry.agent-client-plan-status-in_progress {
+	font-weight: bold;
+}
+
+/* Permission Request */
+.agent-client-message-permission-request {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	justify-content: flex-end;
+	padding: 6px 0;
+	margin-top: 4px;
+}
+
+/* ===== Permission Request Buttons ===== */
+.agent-client-permission-option {
+	padding: 8px 16px;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--radius-m);
+	background-color: var(--background-primary);
+	color: var(--text-normal);
+	cursor: pointer;
+	font-size: 13px;
+	font-weight: 500;
+	transition: all 0.2s ease;
+	min-width: 80px;
+	/* Never exceed the leaf width — in a narrow sidebar a long option name
+	   (e.g. "Always Allow Bash(<long command>), Read(<glob>)") would otherwise
+	   overflow the container on both sides. The label span truncates within. */
+	max-width: 100%;
+	text-align: center;
+	opacity: 1;
+}
+
+/* Truncate the (potentially very long) option label with an ellipsis so the
+   button stays within the leaf; the full text is available via setTooltip. */
+.agent-client-permission-option-label {
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.agent-client-permission-option.agent-client-selected {
+	background-color: var(--interactive-accent);
+	color: var(--text-on-accent);
+	font-weight: 600;
+}
+
+.agent-client-permission-option.agent-client-disabled {
+	background-color: var(--background-modifier-border);
+	color: var(--text-muted);
+	cursor: not-allowed;
+}
+
+.agent-client-permission-option.agent-client-disabled:not(
+		.agent-client-selected
+	) {
+	opacity: 0.5;
+}
+
+/* Special kinds */
+.agent-client-permission-option.agent-client-permission-kind-allow_always:not(
+		.agent-client-selected
+	):not(.agent-client-disabled) {
+	background-color: var(--color-green);
+	color: var(--text-on-accent);
+	border-color: var(--color-green);
+}
+
+.agent-client-permission-option.agent-client-permission-kind-reject_once:not(
+		.agent-client-selected
+	):not(.agent-client-disabled) {
+	background-color: var(--color-red);
+	color: var(--text-on-accent);
+	border-color: var(--color-red);
+}
+
+.agent-client-permission-option.agent-client-permission-kind-allow_once:not(
+		.agent-client-selected
+	):not(.agent-client-disabled) {
+	background-color: var(--color-orange);
+	color: var(--text-on-accent);
+	border-color: var(--color-orange);
+}
+
+/* Normal option button hover (no kind specified) */
+.agent-client-permission-option:not(
+		.agent-client-permission-kind-allow_always
+	):not(.agent-client-permission-kind-reject_once):not(
+		.agent-client-permission-kind-allow_once
+	):not(.agent-client-disabled):not(.agent-client-selected):hover {
+	background-color: var(--background-modifier-hover);
+}
+
+/* ===== Chat View Components ===== */
+
+/* Remove top padding on view-content so nav-header aligns with other sidebar panes */
+.workspace-leaf-content[data-type="agent-console-chat-view"] > .view-content {
+	padding-top: 0;
+	padding-left: 0;
+	padding-right: 0;
+	overflow: hidden;
+}
+
+/* Off-screen probe used by Settings to measure the effective chat font size
+   (carries .agent-client-chat-view-container so it inherits the same
+   --ac-chat-font-size cascade as real chat messages). */
+.agent-client-font-size-probe {
+	position: absolute;
+	left: -99999px;
+	top: 0;
+	visibility: hidden;
+}
+
+/* Main container */
+.agent-client-chat-view-container {
+	--ac-chat-font-size: var(--font-text-size);
+	height: 100%;
+	flex: 1;
+	min-height: 0;
+	display: flex;
+	flex-direction: column;
+	padding: 0;
+}
+
+/* Header — uses Obsidian's .nav-header + .nav-buttons-container pattern */
+.agent-client-chat-view-header .nav-buttons-container {
+	display: flex;
+	align-items: center;
+	flex-wrap: nowrap;
+}
+
+.agent-client-chat-view-header-title {
+	flex: 1 1 0;
+	min-width: 0;
+	padding-left: var(--size-4-1);
+	color: var(--nav-item-color);
+	font-size: var(--font-ui-small);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.agent-client-chat-view-header-update {
+	flex: 0 1 auto;
+	padding: 2px 8px;
+	font-size: 11px;
+	font-family: inherit;
+	color: var(--text-muted);
+	background-color: var(--background-modifier-hover);
+	border: none;
+	border-radius: var(--radius-s);
+	box-shadow: none;
+	font-weight: 500;
+	height: auto;
+	line-height: inherit;
+	cursor: pointer;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	min-width: 0;
+}
+
+.agent-client-chat-view-header-update:hover {
+	color: var(--text-normal);
+	background-color: var(--background-modifier-active-hover);
+}
+
+.agent-client-chat-view-header-update:focus-visible {
+	outline: var(--border-width) solid var(--background-modifier-border-focus);
+	outline-offset: 1px;
+}
+
+/* ===== Header Branding (BrandedTitle component) =====
+ *
+ * v0 layered three-segment header title for the sidebar header.
+ * Layout: [Plugin] Profile · Model
+ *
+ * Visual hierarchy:
+ *   - Primary segments (plugin, profile) use default text color
+ *   - Secondary segment (model, connecting placeholder) uses --text-muted
+ *
+ * Truncation tiers (set as a width-derived class on the inner BrandedTitle
+ * span by `useHeaderWidthTier` in ChatHeader.tsx; the OBSERVED element is
+ * the parent title slot, not this inner span):
+ *   wide   (≥280px): all visible segments shown
+ *   medium (≥180px): plugin prefix hidden
+ *   narrow (≥120px): same as medium; model truncates via ellipsis
+ *   tight  (<120px): model harder-truncated via max-width
+ *
+ * Profile name is never hidden — it's the only signal that distinguishes
+ * one configured profile from another.
+ *
+ * Runtime version (e.g. "Kiro CLI Agent 2.4.0") is NOT in the visible header
+ * for v0 — it's surfaced via the `title` tooltip on the parent title slot.
+ * See spec § Decisions #11.
+ */
+.acp-header-branded {
+	display: inline-flex;
+	flex-wrap: nowrap;
+	align-items: baseline;
+	min-width: 0;
+	max-width: 100%;
+	overflow: hidden;
+}
+
+.acp-header-branded-plugin {
+	color: var(--text-normal);
+	flex-shrink: 0;
+	margin-right: 0.4em;
+}
+
+.acp-header-branded-profile {
+	color: var(--text-normal);
+	flex-shrink: 0;
+	white-space: nowrap;
+}
+
+.acp-header-branded-sep {
+	color: var(--text-faint);
+	flex-shrink: 0;
+	white-space: pre;
+}
+
+.acp-header-branded-model,
+.acp-header-branded-connecting {
+	color: var(--text-muted);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	min-width: 0;
+}
+
+/* Model can shrink via ellipsis when the row tightens */
+.acp-header-branded-model {
+	flex-shrink: 1;
+}
+
+.acp-header-branded-connecting {
+	flex-shrink: 0;
+	font-style: italic;
+}
+
+/* Tight tier: extra-aggressive model truncation to keep profile readable */
+.acp-header-branded--tight .acp-header-branded-model {
+	max-width: 8em;
+}
+
+/* ===== Inline Header (CodeBlock) ===== */
+.agent-client-inline-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 8px 12px;
+	border-bottom: none;
+	background-color: var(--background-primary);
+	flex-shrink: 0;
+	flex-wrap: nowrap;
+	min-height: 36px;
+}
+
+.agent-client-inline-header-main {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.agent-client-inline-header-actions {
+	display: flex;
+	gap: 4px;
+	justify-content: flex-end;
+	flex-shrink: 0;
+}
+
+/* Messages container — Phase 2 native-scroll architecture.
+ * overflow-anchor: none disables browser-side anchoring so it doesn't
+ * fight useAutoScrollPin's explicit programmatic scrolls. */
+.agent-client-chat-view-messages {
+	flex: 1;
+	padding: 16px 8px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	overflow-anchor: none;
+	font-size: var(--ac-chat-font-size);
+	min-height: 0;
+	position: relative;
+}
+
+/* Inner content wrapper (the element ResizeObserver tracks for content-grow). */
+.agent-client-chat-content {
+	display: flex;
+	flex-direction: column;
+	/* I-S12 fix A (defense in depth): exclude descendants from scroll-anchoring's
+	 * candidate set per W3C css-scroll-anchoring § 2.1 ("excluded subtree" — N's
+	 * computed value of overflow-anchor is none). The scroll container itself
+	 * already has overflow-anchor: none above, but Chromium's implementation
+	 * empirically still adjusts scrollTop on layout-shrink in our InputArea-grow
+	 * scenario. The hook-side fix B+C handles the scroll preservation
+	 * empirically; this CSS rule reinforces it via the canonical W3C path.
+	 * MDN's recommended pattern: apply overflow-anchor: none broadly when the
+	 * default anchoring algorithm misbehaves. */
+	overflow-anchor: none;
+}
+
+/* Apply overflow-anchor: none to all descendants of the chat content as well —
+ * MDN canonical recipe, since per W3C spec § 2.1 the anchor-node-selection
+ * algorithm walks the DOM tree from S; a single excluded subtree at the root
+ * should be sufficient, but in practice Chromium can pick descendants as anchors
+ * if their own overflow-anchor is auto (default). Belt-and-suspenders. */
+.agent-client-chat-content > * {
+	overflow-anchor: none;
+}
+
+/* Message row spacing.
+ * NOTE: content-visibility: auto was tried but causes scrollHeight to
+ * report an inflated/inaccurate value during initial session restore
+ * (placeholder contain-intrinsic-size doesn't match real bubble heights),
+ * which leaves the scroll position at ~3/4 down instead of bottom on
+ * restore. Removed pending a different perf strategy if needed. With
+ * 201-message sessions in Phase 1 traces, virtualizer measurement was
+ * only 2.48 ms total — paint cost without the off-screen skip is in the
+ * same range. Revisit if a future profile shows excessive paint cost. */
+.agent-client-message-row {
+	padding-bottom: 2px;
+}
+
+.agent-client-message-pending {
+	opacity: 0.6;
+}
+
+.agent-client-pending-label {
+	display: block;
+	font-size: var(--font-smallest);
+	color: var(--text-muted);
+	padding: 0 var(--size-4-3);
+	margin-top: -2px;
+}
+
+/* Allow horizontal scroll for wide tables within messages */
+.agent-client-chat-view-messages table {
+	display: block;
+	overflow-x: auto;
+	max-width: 100%;
+}
+
+/* Error display */
+.agent-client-chat-error-container {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	padding: 20px;
+	background-color: var(--background-secondary);
+	border-radius: var(--radius-m);
+	border: 1px solid var(--color-red);
+	max-width: 100%;
+	overflow: hidden;
+}
+
+.agent-client-chat-error-title {
+	margin: 0 0 8px 0;
+	color: var(--color-red);
+}
+
+.agent-client-chat-error-message {
+	margin: 0;
+	color: var(--text-normal);
+	font-size: 14px;
+	line-height: 1.4;
+	word-wrap: break-word;
+	word-break: break-all;
+	overflow-wrap: anywhere;
+}
+
+.agent-client-chat-error-suggestion {
+	margin: 8px 0 0 0;
+	color: var(--text-muted);
+	font-size: 13px;
+	font-style: italic;
+	line-height: 1.4;
+	word-wrap: break-word;
+	word-break: break-all;
+	overflow-wrap: anywhere;
+}
+
+/* ============================================================
+   Notification Overlay (displayed above input field)
+   Supports variants: --error (default), --info
+   ============================================================ */
+
+.agent-client-error-overlay {
+	position: absolute;
+	bottom: 100%;
+	left: 8px;
+	right: 8px;
+	margin-bottom: 8px;
+	padding: 12px 16px;
+	background-color: var(--background-secondary);
+	border: 1px solid var(--color-red);
+	border-radius: var(--radius-m);
+	z-index: 10;
+	box-shadow: var(--shadow-s);
+}
+
+/* Variant border colors */
+.agent-client-error-overlay--error {
+	border-color: var(--color-red);
+}
+
+.agent-client-error-overlay--info {
+	border-color: var(--background-modifier-border);
+}
+
+.agent-client-error-overlay-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 8px;
+}
+
+.agent-client-error-overlay-title {
+	margin: 0;
+	color: var(--color-red);
+	font-size: 14px;
+	font-weight: 600;
+}
+
+/* Variant title colors */
+.agent-client-error-overlay--error .agent-client-error-overlay-title {
+	color: var(--color-red);
+}
+
+.agent-client-error-overlay--info .agent-client-error-overlay-title {
+	color: var(--text-normal);
+}
+
+.agent-client-error-overlay-close {
+	width: 14px;
+	height: 14px;
+	padding: 0;
+}
+
+.agent-client-error-overlay-close svg {
+	width: 14px;
+	height: 14px;
+	color: inherit;
+}
+
+.agent-client-error-overlay-close:hover {
+	background: none;
+	box-shadow: none;
+	color: var(--interactive-accent);
+}
+
+.agent-client-error-overlay-close:active,
+.agent-client-error-overlay-close:focus {
+	background: none;
+	box-shadow: none;
+	outline: none;
+}
+
+.agent-client-error-overlay-message {
+	margin: 0;
+	color: var(--text-normal);
+	font-size: 13px;
+	line-height: 1.4;
+	white-space: pre-line;
+	word-wrap: break-word;
+	word-break: break-word;
+}
+
+.agent-client-error-overlay-suggestion {
+	margin: 8px 0 0 0;
+	color: var(--text-muted);
+	font-size: 12px;
+	font-style: italic;
+	line-height: 1.4;
+}
+
+.agent-client-error-overlay-code {
+	display: block;
+	margin-top: 4px;
+	padding: 6px 8px;
+	background-color: var(--background-primary);
+	border-radius: var(--radius-s);
+	font-family: var(--font-monospace);
+	font-size: 12px;
+	font-style: normal;
+	line-height: 1.4;
+	color: var(--text-normal);
+	word-break: break-all;
+	user-select: all;
+	cursor: text;
+}
+
+/* ============================================================
+   Lossy-Fallback Notice (rendered above first agent response
+   after `session/load` failure → client-side replay).
+
+   Per [[ACP Tab Persistence Across Restarts]] § Decision #11
+   (2026-05-24): callout-style block, info-icon prefixed,
+   bordered styling, non-dismissible. The literal `ℹ️` sigil
+   in the copy serves as the info-icon prefix.
+   ============================================================ */
+
+.agent-client-fallback-notice {
+	margin: 8px 0;
+	padding: 10px 14px;
+	background-color: var(--background-secondary);
+	border: 1px solid var(--background-modifier-border);
+	border-left: 3px solid var(--interactive-accent);
+	border-radius: var(--radius-m);
+	color: var(--text-normal);
+	font-size: 13px;
+	line-height: 1.5;
+}
+
+.agent-client-fallback-notice strong {
+	color: var(--text-normal);
+	font-weight: 600;
+}
+
+/* Empty state */
+.agent-client-chat-empty-state {
+	color: var(--text-muted);
+	text-align: center;
+	margin-top: 20px;
+}
+
+/* Getting-started empty state (Layer 2: never a dead end) */
+.agent-client-getting-started {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 10px;
+	padding: 0 16px;
+}
+
+.agent-client-getting-started-heading {
+	color: var(--text-normal);
+	font-size: var(--font-ui-medium);
+	font-weight: var(--font-semibold);
+}
+
+.agent-client-getting-started-subtext {
+	color: var(--text-muted);
+	font-size: var(--font-ui-smaller);
+}
+
+.agent-client-getting-started-picks {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 8px;
+}
+
+.agent-client-getting-started-pick {
+	cursor: pointer;
+}
+
+.agent-client-getting-started-settings,
+.agent-client-getting-started-redetect {
+	cursor: pointer;
+}
+
+.agent-client-getting-started-hint {
+	color: var(--text-faint);
+	font-size: var(--font-ui-smaller);
+	max-width: 280px;
+}
+
+/* First-run install rows (activation) */
+.agent-client-getting-started-installs {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	width: 100%;
+	max-width: 320px;
+}
+
+.agent-client-install-row {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px;
+}
+
+.agent-client-install-name {
+	flex: 0 0 auto;
+	width: 6.5em;
+	text-align: right;
+	white-space: nowrap;
+	color: var(--text-normal);
+	font-size: var(--font-ui-smaller);
+}
+
+.agent-client-install-run,
+.agent-client-install-copy {
+	cursor: pointer;
+}
+
+.agent-client-install-run:disabled {
+	opacity: 0.6;
+	cursor: progress;
+}
+
+.agent-client-install-guide {
+	font-size: var(--font-ui-smaller);
+}
+
+/* Keyboard focus ring for the empty-state links (per-agent install-guide link
+   + the inline example links in the subtext). Outline (shape, not color-only)
+   keeps it visible under red-green color-vision deficiency. Matches the
+   accent-outline pattern used elsewhere (queued actions, tool-call summary). */
+.agent-client-install-guide:focus-visible,
+.agent-client-getting-started-subtext a:focus-visible {
+	outline: 2px solid var(--interactive-accent);
+	outline-offset: 1px;
+	border-radius: var(--radius-s);
+}
+
+.agent-client-install-output {
+	flex-basis: 100%;
+	margin: 2px 0 0;
+	padding: 6px 8px;
+	max-height: 140px;
+	overflow: auto;
+	white-space: pre-wrap;
+	word-break: break-word;
+	background: var(--background-secondary);
+	border-radius: var(--radius-s);
+	color: var(--text-muted);
+	font-size: var(--font-ui-smaller);
+}
+
+/* Context strip */
+.context-strip {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	padding: 4px 8px;
+	min-height: 28px;
+	border-top: 1px solid var(--background-modifier-border);
+}
+
+.context-strip-grab {
+	flex-shrink: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 24px;
+	height: 24px;
+	border: none;
+	border-radius: var(--radius-s);
+	background: transparent;
+	color: var(--text-muted);
+	cursor: pointer;
+	padding: 0;
+}
+
+.context-strip-grab:hover:not(:disabled) {
+	background: var(--background-modifier-hover);
+	color: var(--text-normal);
+}
+
+.context-strip-grab:disabled {
+	opacity: 0.4;
+	cursor: not-allowed;
+}
+
+.context-strip-field {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 4px;
+	flex: 1;
+	/* Reserve one pill's rendered height (line-height 1.45 × 14px + 8px padding +
+	   2px border ≈ 30.3px) so adding/removing the first pill doesn't change the
+	   row height. Must be ≥ pill height to avoid a residual jump (I75). */
+	min-height: 31px;
+}
+
+.context-strip-pill {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	/* Asymmetric horizontal padding: text needs more breathing room than the
+	   trailing × button. 6px right shifts the button right so the glyph sits
+	   ~11px from the right border, matching the name's ~11px from the left
+	   border (the 18px button's centered glyph adds ~4px internal slack that a
+	   symmetric 10px would compound into visible excess space). See I91. */
+	padding: 4px 6px 4px 10px;
+	border-radius: var(--radius-s);
+	background: var(--background-secondary);
+	border: 1px solid var(--background-modifier-border);
+	font-size: 14px;
+	line-height: 1.45;
+	max-width: 200px;
+}
+
+.context-strip-pill--provisional {
+	border-style: dashed;
+	opacity: 0.7;
+}
+
+.context-strip-pill-name {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	cursor: pointer;
+	color: var(--text-normal);
+}
+
+.context-strip-pill-name:hover {
+	color: var(--interactive-accent);
+	text-decoration: underline;
+}
+
+.context-strip-pill-name:focus-visible {
+	outline: 2px solid var(--interactive-accent);
+	outline-offset: 1px;
+	border-radius: var(--radius-s);
+}
+
+.context-strip-pill-remove {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	width: 18px;
+	height: 18px;
+	border: none;
+	border-radius: var(--radius-s);
+	background: transparent;
+	color: var(--text-muted);
+	cursor: pointer;
+	padding: 0;
+	font-size: 16px;
+	line-height: 1;
+}
+
+.context-strip-pill-remove:hover {
+	background: var(--background-modifier-hover);
+	color: var(--text-normal);
+}
+
+/* Input area */
+.agent-client-chat-input-container {
+	flex-shrink: 0;
+	padding: 0 8px;
+	position: relative;
+}
+
+/* Input box - outer container with border and background */
+.agent-client-chat-input-box {
+	display: flex;
+	flex-direction: column;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--radius-m);
+	background-color: var(--background-primary);
+	overflow: hidden;
+	transition: box-shadow 0.15s ease;
+}
+
+.agent-client-chat-input-box:focus-within {
+	box-shadow: 0 0 0 1.5px var(--background-modifier-border);
+}
+
+.agent-client-chat-input-box.agent-client-dragging-over {
+	background-color: var(--background-secondary);
+}
+
+/* ============================================================
+ * Queue Next Message (#82) — queued (locked) input state.
+ * Must be visually DISTINCT from the connecting and streaming
+ * disabled states. Uses the accent (interactive/blue) hue + a left
+ * accent bar + a labelled banner — not red/green (color-vision safe).
+ * ============================================================ */
+.agent-client-chat-input-box.agent-client-queued {
+	border-color: var(--interactive-accent);
+	box-shadow: inset 3px 0 0 0 var(--interactive-accent);
+	background-color: var(--background-secondary);
+}
+
+/* The locked composer reads as committed-but-paused, not broken. */
+.agent-client-chat-input-box.agent-client-queued
+	.agent-client-chat-input-textarea {
+	opacity: 0.85;
+	cursor: default;
+}
+
+.agent-client-queued-banner {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 6px 10px;
+	font-size: var(--font-ui-smaller);
+	color: var(--text-accent);
+	background-color: var(--background-modifier-hover);
+	border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.agent-client-queued-banner-icon {
+	display: inline-flex;
+	align-items: center;
+	flex-shrink: 0;
+}
+
+.agent-client-queued-banner-icon svg {
+	width: var(--icon-s);
+	height: var(--icon-s);
+}
+
+.agent-client-queued-banner-text {
+	flex: 1;
+	min-width: 0;
+}
+
+.agent-client-queued-banner-actions {
+	display: flex;
+	gap: 4px;
+	flex-shrink: 0;
+}
+
+.agent-client-queued-edit,
+.agent-client-queued-delete {
+	padding: 2px 10px;
+	font-size: var(--font-ui-smaller);
+	border-radius: var(--radius-s);
+	cursor: pointer;
+}
+
+.agent-client-queued-edit {
+	color: var(--text-on-accent);
+	background-color: var(--interactive-accent);
+}
+
+.agent-client-queued-edit:hover {
+	background-color: var(--interactive-accent-hover);
+}
+
+.agent-client-queued-delete {
+	color: var(--text-normal);
+	background-color: var(--background-modifier-border);
+}
+
+.agent-client-queued-edit:focus-visible,
+.agent-client-queued-delete:focus-visible {
+	outline: 2px solid var(--interactive-accent);
+	outline-offset: 1px;
+}
+
+/* Auto-mention inline display */
+.agent-client-auto-mention-inline {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 4px;
+	padding: 6px 12px;
+	width: 100%;
+	cursor: pointer;
+	background: none;
+	background-color: transparent;
+	border: none;
+	outline: none;
+	appearance: none;
+	box-shadow: none;
+	text-align: left;
+	font: inherit;
+	color: inherit;
+	min-width: unset;
+	min-height: unset;
+}
+
+.agent-client-mention-badge {
+	background-color: transparent;
+	color: var(--interactive-accent-hover);
+	border-radius: var(--radius-s);
+	font-size: var(--font-text-size);
+	font-weight: 500;
+	line-height: var(--line-height-normal);
+	cursor: pointer;
+	user-select: none;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: calc(100% - 24px);
+}
+
+.agent-client-mention-badge.agent-client-disabled {
+	color: var(--text-faint);
+	text-decoration: line-through;
+}
+
+.agent-client-auto-mention-toggle-icon {
+	color: var(--text-muted);
+	transition: color 0.2s;
+	width: 16px;
+	height: 16px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+}
+
+.agent-client-auto-mention-toggle-icon svg {
+	width: 14px;
+	height: 14px;
+	color: inherit;
+}
+
+.agent-client-auto-mention-inline:hover .agent-client-auto-mention-toggle-icon {
+	color: var(--interactive-accent);
+}
+
+.agent-client-chat-input-textarea {
+	width: 100%;
+	padding: 12px;
+	border: none;
+	background-color: transparent;
+	color: var(--text-normal);
+	resize: none;
+	min-height: 80px;
+	max-height: 300px;
+	font-family: inherit;
+	font-size: var(--ac-chat-font-size);
+	line-height: var(--line-height-normal);
+	box-sizing: border-box;
+	outline: none;
+	overflow-y: auto;
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+}
+
+.agent-client-chat-input-textarea::-webkit-scrollbar {
+	display: none;
+}
+
+.agent-client-chat-input-textarea:hover {
+	border: none;
+	background-color: transparent;
+}
+
+.agent-client-chat-input-textarea:focus {
+	border: none;
+	outline: none;
+	box-shadow: none;
+}
+
+/* Dynamic textarea height management */
+.agent-client-chat-input-textarea.agent-client-textarea-auto-height {
+	height: auto;
+}
+
+.agent-client-chat-input-textarea.agent-client-textarea-expanded {
+	height: var(--textarea-height, auto);
+}
+
+/* Textarea wrapper for hint overlay */
+.agent-client-textarea-wrapper {
+	position: relative;
+	flex: 1;
+	min-height: 80px;
+}
+
+/* Hint overlay for slash commands */
+.agent-client-hint-overlay {
+	/* Positioning - exact overlay on textarea */
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	pointer-events: none;
+	/* Match textarea properties exactly */
+	padding: 12px;
+	box-sizing: border-box;
+	font-family: inherit;
+	font-size: var(--ac-chat-font-size);
+	line-height: var(--line-height-normal);
+	/* Text wrapping */
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	overflow: hidden;
+}
+
+.agent-client-hint-overlay .agent-client-invisible {
+	visibility: hidden;
+}
+
+.agent-client-hint-overlay .agent-client-hint-text {
+	color: var(--text-faint);
+}
+
+/* Input Actions Container */
+.agent-client-chat-input-actions {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	flex-wrap: nowrap;
+	gap: 8px;
+	padding: 4px 12px 8px 12px;
+	min-width: 0;
+}
+
+/* Toolbar dropdown — opens an Obsidian Menu on click. */
+
+.agent-client-toolbar-dropdown {
+	display: inline-flex;
+	padding: 0 4px;
+	height: 20px;
+	max-width: 120px;
+	min-width: 0;
+	flex-shrink: 1;
+	overflow: hidden;
+	transition: background-color 0.1s ease;
+}
+
+.agent-client-toolbar-dropdown:hover {
+	background-color: var(--background-modifier-hover);
+}
+
+.agent-client-toolbar-dropdown:focus:not(:focus-visible) {
+	background: transparent;
+	box-shadow: none;
+	outline: none;
+}
+
+/* Keyboard focus shows the standard focus ring; mouse focus stays clean
+   (above). One predictable ring via outline, matching the explicit
+   :focus-visible treatment on the header update + tool-call summary buttons. */
+.agent-client-toolbar-dropdown:focus-visible {
+	outline: var(--border-width) solid var(--background-modifier-border-focus);
+	outline-offset: 0;
+	box-shadow: none;
+}
+
+.agent-client-toolbar-dropdown-label-area {
+	display: grid;
+	max-width: 100px;
+	overflow: hidden;
+}
+
+.agent-client-toolbar-dropdown-label-area > * {
+	grid-area: 1 / 1;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	text-align: left;
+	font-size: 11px;
+}
+
+.agent-client-toolbar-dropdown-sizer {
+	visibility: hidden;
+}
+
+.agent-client-toolbar-dropdown-label {
+	color: var(--text-faint);
+}
+
+.agent-client-toolbar-dropdown-chevron {
+	display: flex;
+	align-items: center;
+	pointer-events: none;
+	color: var(--text-faint);
+	margin-left: 2px;
+}
+
+.agent-client-toolbar-dropdown-chevron svg {
+	width: 12px;
+	height: 12px;
+}
+
+/* Context Usage Indicator */
+.agent-client-usage-indicator {
+	font-size: var(--font-smallest);
+	flex-shrink: 0;
+	cursor: default;
+	user-select: none;
+	white-space: nowrap;
+}
+
+.agent-client-usage-normal {
+	color: var(--text-faint);
+}
+
+.agent-client-usage-caution {
+	color: var(--color-yellow);
+}
+
+.agent-client-usage-warning {
+	color: var(--color-orange);
+}
+
+.agent-client-usage-danger {
+	color: var(--color-red);
+	font-weight: var(--font-semibold);
+}
+
+/* Send button */
+.agent-client-chat-send-button {
+	width: 20px;
+	height: 20px;
+	padding: 0;
+	transition: all 0.2s ease;
+}
+
+.agent-client-chat-send-button.agent-client-disabled {
+	cursor: not-allowed;
+}
+
+/* Send button icon states */
+.agent-client-chat-send-button svg {
+	transition: color 0.2s ease;
+}
+
+.agent-client-chat-send-button svg.agent-client-icon-sending {
+	color: var(--color-red);
+}
+
+.agent-client-chat-send-button svg.agent-client-icon-active {
+	color: var(--interactive-accent);
+}
+
+.agent-client-chat-send-button svg.agent-client-icon-inactive {
+	color: var(--text-muted);
+}
+
+/* ===== Other Chat Components ===== */
+
+/* Collapsible Thought */
+.agent-client-collapsible-thought {
+	font-style: italic;
+	color: var(--text-muted);
+	background-color: transparent;
+	font-size: 0.9em;
+	cursor: pointer;
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+	word-break: break-word;
+	max-width: 100%;
+	margin-top: 8px;
+	margin-bottom: 12px;
+}
+
+.agent-client-collapsible-thought-header {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.agent-client-collapsible-thought-icon {
+	opacity: 0.7;
+	margin-left: auto;
+}
+
+.agent-client-collapsible-thought-icon svg {
+	width: 14px;
+	height: 14px;
+}
+
+.agent-client-collapsible-thought-content {
+	margin-top: 8px;
+	padding-left: 16px;
+	user-select: text;
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+	word-break: break-word;
+}
+
+/* Mention Dropdown */
+.agent-client-mention-dropdown {
+	position: absolute;
+	bottom: 100%;
+	left: 8px;
+	right: 8px;
+	max-height: 300px;
+	background-color: var(--background-secondary);
+	border: 2px solid var(--background-modifier-border);
+	border-radius: var(--radius-m);
+	box-shadow: var(--shadow-l);
+	font-size: 14px;
+	margin-bottom: 8px;
+	z-index: 1000;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+}
+
+/* Rows scroll here; the quick-prompt legend footer is pinned OUTSIDE this
+   container so it stays visible and never forces an always-on scrollbar. */
+.agent-client-mention-dropdown-scroll {
+	flex: 1 1 auto;
+	min-height: 0;
+	overflow-y: auto;
+}
+
+.agent-client-mention-dropdown-item {
+	padding: 4px 16px;
+	cursor: pointer;
+	background-color: transparent;
+	user-select: none;
+	transition: background-color 0.1s ease;
+}
+
+.agent-client-mention-dropdown-item.agent-client-selected {
+	background-color: var(--background-modifier-hover);
+}
+
+.agent-client-mention-dropdown-item-name {
+	font-weight: 500;
+	color: var(--text-normal);
+	margin-bottom: 2px;
+}
+
+.agent-client-mention-dropdown-item-path {
+	font-size: 12px;
+	color: var(--text-muted);
+	opacity: 0.8;
+
+/* Inline layout (mention `@`): title + subtitle on one row, native
+   quick-switcher style. Stacked is the default and needs no rule. */
+.agent-client-mention-dropdown-item.agent-client-picker-item-inline {
+	display: flex;
+	align-items: baseline;
+	gap: var(--size-4-2);
+}
+
+.agent-client-picker-item-inline .agent-client-mention-dropdown-item-name {
+	margin-bottom: 0;
+	flex: 0 0 auto;
+}
+
+.agent-client-picker-item-inline .agent-client-mention-dropdown-item-path {
+	flex: 1 1 auto;
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+}
+
+/* Terminal Renderer */
+.agent-client-terminal-renderer {
+	padding: 8px;
+	margin-top: 4px;
+	background-color: var(--background-secondary);
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--radius-s);
+	font-size: 12px;
+	font-family: var(--font-monospace);
+	white-space: pre-wrap;
+	word-break: break-word;
+	max-height: 400px;
+	overflow: auto;
+	user-select: text;
+}
+
+.agent-client-terminal-renderer-exit {
+	margin-top: 8px;
+	padding: 4px 8px;
+	color: var(--text-on-accent);
+	border-radius: var(--radius-s);
+	font-size: 11px;
+	font-family: var(--font-interface);
+	user-select: text;
+}
+
+.agent-client-terminal-renderer-exit.agent-client-success {
+	background-color: var(--color-green);
+}
+
+.agent-client-terminal-renderer-exit.agent-client-error {
+	background-color: var(--color-red);
+}
+
+/* Message Renderer */
+.agent-client-message-renderer {
+	position: relative;
+	padding: 0 16px;
+	width: 100%;
+	margin: 4px 0;
+	/* Prevent long strings from overflowing */
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+	word-break: break-word;
+	max-width: 100%;
+	box-sizing: border-box;
+}
+
+.agent-client-message-renderer.agent-client-message-user {
+	width: auto;
+	margin-left: 8px;
+	margin-right: 8px;
+	background-color: var(--background-primary);
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--radius-m);
+}
+
+.agent-client-message-renderer.agent-client-message-assistant {
+	background-color: transparent;
+	border: none;
+	border-radius: 0;
+}
+
+.agent-client-message-renderer.agent-client-message-assistant
+	.agent-client-message-actions {
+	bottom: -8px;
+}
+
+.agent-client-message-actions {
+	position: absolute;
+	bottom: 4px;
+	right: 8px;
+	display: flex;
+	gap: 2px;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.15s ease;
+}
+
+.agent-client-message-renderer:hover .agent-client-message-actions {
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.agent-client-message-action-button {
+	color: var(--text-muted);
+}
+
+.agent-client-message-action-button:hover {
+	background-color: transparent;
+}
+
+.agent-client-message-action-button svg {
+	width: 14px;
+	height: 14px;
+}
+
+/* Text with Mentions */
+.agent-client-text-with-mentions {
+	user-select: text;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	word-break: break-word;
+	overflow-wrap: break-word;
+	margin: 1em 0;
+	font-size: var(--ac-chat-font-size);
+	max-width: 100%;
+}
+
+.agent-client-text-mention {
+	background-color: transparent;
+	color: var(--interactive-accent-hover);
+	border-radius: var(--radius-s);
+	font-size: 0.9em;
+	font-weight: 500;
+	cursor: pointer;
+}
+
+/* Markdown Text Renderer */
+.agent-client-markdown-text-renderer {
+	user-select: text;
+	font-size: var(--ac-chat-font-size);
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+	word-break: break-word;
+	max-width: 100%;
+}
+
+.agent-client-markdown-text-renderer.markdown-rendered pre,
+.agent-client-markdown-text-renderer.markdown-rendered table,
+.agent-client-markdown-text-renderer.markdown-rendered .mermaid,
+.agent-client-markdown-text-renderer.markdown-rendered svg {
+	overflow-x: auto;
+	display: block;
+}
+
+/* Tool Call Diff Renderer */
+.agent-client-tool-call-diff {
+	margin-top: 8px;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--radius-s);
+	overflow: hidden;
+	font-family: var(--font-monospace);
+	font-size: 12px;
+}
+
+.agent-client-tool-call-diff-content {
+	background-color: var(--background-primary);
+	overflow: auto;
+}
+
+.agent-client-diff-line-info {
+	padding: 4px 12px;
+	background-color: var(--background-secondary);
+	color: var(--text-muted);
+	font-size: 11px;
+	font-style: italic;
+}
+
+.agent-client-diff-line {
+	display: flex;
+	align-items: flex-start;
+	line-height: 1.5;
+	user-select: text;
+}
+
+.agent-client-diff-line-content {
+	flex: 1;
+	padding: 2px 12px;
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.agent-client-diff-line-added {
+	background-color: rgba(var(--color-green-rgb), 0.15);
+}
+
+.agent-client-diff-line-removed {
+	background-color: rgba(var(--color-red-rgb), 0.15);
+}
+
+.agent-client-diff-line-context {
+	background-color: transparent;
+}
+
+.agent-client-diff-line-context .agent-client-diff-line-marker {
+	color: var(--text-faint);
+}
+
+/* Hunk header styling */
+.agent-client-diff-hunk-header {
+	padding: 4px 12px;
+	background-color: var(--background-secondary-alt);
+	color: var(--text-muted);
+	font-size: 11px;
+	border-top: 1px solid var(--background-modifier-border);
+	border-bottom: 1px solid var(--background-modifier-border);
+	font-weight: 500;
+}
+
+/* Word-level diff highlighting */
+.agent-client-diff-word-added {
+	background-color: rgba(var(--color-green-rgb), 0.4);
+	font-weight: 600;
+}
+
+.agent-client-diff-word-removed {
+	background-color: rgba(var(--color-red-rgb), 0.4);
+	font-weight: 600;
+	text-decoration: line-through;
+}
+
+/* Tool Call Details */
+.agent-client-tool-call-read-details,
+.agent-client-tool-call-edit-details,
+.agent-client-tool-call-delete-details,
+.agent-client-tool-call-move-details,
+.agent-client-tool-call-search-details,
+.agent-client-tool-call-execute-details,
+.agent-client-tool-call-fetch-details {
+	padding: 4px 0;
+	font-size: 12px;
+	color: var(--text-muted);
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+	word-break: break-word;
+	max-width: 100%;
+}
+
+.agent-client-tool-call-location {
+	padding: 2px 0;
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+	word-break: break-word;
+}
+
+.agent-client-tool-call-line {
+	color: var(--text-accent);
+	font-weight: 500;
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+	word-break: break-word;
+}
+
+.agent-client-tool-call-content {
+	padding: 8px 0;
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+	word-break: break-word;
+}
+
+/* ===== Attachment Preview Strip ===== */
+.agent-client-attachment-preview-strip {
+	display: flex;
+	gap: 8px;
+	padding: 8px 12px;
+	background-color: transparent;
+	overflow-x: auto;
+	scrollbar-width: thin;
+	-ms-overflow-style: none;
+}
+
+.agent-client-attachment-preview-strip::-webkit-scrollbar {
+	height: 4px;
+}
+
+.agent-client-attachment-preview-strip::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+.agent-client-attachment-preview-strip::-webkit-scrollbar-thumb {
+	background-color: var(--background-modifier-border);
+	border-radius: var(--radius-s);
+}
+
+.agent-client-attachment-preview-item {
+	position: relative;
+	flex-shrink: 0;
+	width: 64px;
+	height: 64px;
+}
+
+.agent-client-attachment-preview-thumbnail {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+	border-radius: var(--radius-m);
+	border: 1px solid var(--background-modifier-border);
+}
+
+/* Non-image file preview: icon + filename */
+.agent-client-attachment-preview-file {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 2px;
+	border-radius: var(--radius-m);
+	border: 1px solid var(--background-modifier-border);
+	background-color: var(--background-primary);
+	overflow: hidden;
+}
+
+.agent-client-attachment-preview-file-icon {
+	color: var(--text-muted);
+}
+
+.agent-client-attachment-preview-file-icon svg {
+	width: 24px;
+	height: 24px;
+}
+
+.agent-client-attachment-preview-file-name {
+	font-size: 9px;
+	color: var(--text-muted);
+	text-align: center;
+	max-width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	padding: 0 4px;
+}
+
+.agent-client-attachment-preview-remove {
+	position: absolute;
+	top: -6px;
+	right: -6px;
+	width: 18px;
+	height: 18px;
+	padding: 0;
+	border-radius: 50%;
+	background-color: var(--interactive-normal);
+	opacity: 0;
+	transition: opacity 0.15s ease;
+}
+
+.agent-client-attachment-preview-remove svg {
+	width: 12px;
+	height: 12px;
+}
+
+.agent-client-attachment-preview-item:hover
+	.agent-client-attachment-preview-remove {
+	opacity: 1;
+}
+
+/* ===== Message Resource Link (in chat history) ===== */
+.agent-client-message-resource-link {
+	display: inline-flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 4px;
+	width: 120px;
+	height: 120px;
+	margin: 4px 4px 4px 0;
+	border-radius: var(--radius-m);
+	border: 1px solid var(--background-modifier-border);
+	background-color: var(--background-primary);
+	overflow: hidden;
+}
+
+.agent-client-message-resource-link-icon {
+	color: var(--text-muted);
+	display: flex;
+}
+
+.agent-client-message-resource-link-icon svg {
+	width: 32px;
+	height: 32px;
+}
+
+.agent-client-message-resource-link-name {
+	font-size: 10px;
+	color: var(--text-muted);
+	text-align: center;
+	max-width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	padding: 0 8px;
+}
+
+/* ===== Message Image (in chat history) ===== */
+.agent-client-message-image {
+	display: inline-block;
+	margin: 4px 4px 4px 0;
+}
+
+.agent-client-message-image-thumbnail {
+	width: 120px;
+	height: 120px;
+	object-fit: cover;
+	object-position: center;
+	border-radius: var(--radius-m);
+	border: 1px solid var(--background-modifier-border);
+}
+
+/* ===== Message Images Strip (horizontal scroll in chat history) ===== */
+.agent-client-message-images-strip {
+	display: flex;
+	gap: 8px;
+	padding: 8px 0;
+	overflow-x: auto;
+	scrollbar-width: thin;
+	-ms-overflow-style: none;
+}
+
+.agent-client-message-images-strip::-webkit-scrollbar {
+	height: 4px;
+}
+
+.agent-client-message-images-strip::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+.agent-client-message-images-strip::-webkit-scrollbar-thumb {
+	background-color: var(--background-modifier-border);
+	border-radius: var(--radius-s);
+}
+
+.agent-client-message-images-strip .agent-client-message-image {
+	flex-shrink: 0;
+	margin: 0;
+}
+
+.agent-client-message-images-strip .agent-client-message-resource-link {
+	flex-shrink: 0;
+	margin: 0;
+}
+
+/* ===== Session History Modal ===== */
+
+/* Local / Agent source toggle (replaces the old filter checkboxes). */
+.agent-client-session-history-source-row {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin-bottom: 12px;
+}
+
+.agent-client-session-history-source-toggle {
+	display: flex;
+	gap: 4px;
+	padding: 4px;
+	background-color: var(--background-modifier-form-field);
+	border-radius: var(--radius-m);
+	width: fit-content;
+}
+
+.agent-client-session-history-source-pill {
+	padding: 4px 14px;
+	border: none;
+	border-radius: var(--radius-s);
+	background-color: transparent;
+	color: var(--text-muted);
+	font-size: var(--font-ui-small);
+	cursor: pointer;
+	box-shadow: none;
+}
+
+.agent-client-session-history-source-pill.is-active {
+	background-color: var(--interactive-accent);
+	color: var(--text-on-accent);
+	font-weight: var(--font-medium);
+}
+
+.agent-client-session-history-source-pill:disabled {
+	opacity: 0.5;
+	cursor: default;
+}
+
+/* "Synced N ago — connect to refresh" affordance on the disconnected Agent
+   view. */
+.agent-client-session-history-sync-affordance {
+	display: flex;
+	flex-direction: column;
+	gap: 1px;
+	min-width: 0;
+	font-size: var(--font-ui-smaller);
+	line-height: 1.25;
+	color: var(--text-muted);
+}
+
+.agent-client-session-history-sync-affordance > span {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 100%;
+}
+
+/* Per-row agent badge on the unified Local view. */
+.agent-client-session-history-item-agent-badge {
+	font-size: var(--font-ui-smaller);
+	color: var(--text-muted);
+	padding: 1px 6px;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--radius-s);
+}
+
+/* Migration empty-state action ("View agent sessions"). */
+.agent-client-session-history-empty-action {
+	margin-top: 8px;
+}
+
+.agent-client-session-history-filter {
+	display: flex;
+	align-items: flex-start;
+	gap: 8px;
+	cursor: pointer;
+	margin-bottom: 16px;
+	padding-bottom: 12px;
+	border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.agent-client-session-history-filter input[type="checkbox"] {
+	cursor: pointer;
+	margin-top: 2px;
+	flex-shrink: 0;
+}
+
+.agent-client-session-history-filter-text {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	min-width: 0;
+}
+
+.agent-client-session-history-filter-title {
+	font-size: 14px;
+	color: var(--text-normal);
+}
+
+.agent-client-session-history-filter-folder {
+	font-size: 12px;
+	color: var(--text-muted);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-family: var(--font-monospace);
+}
+
+.agent-client-session-history-list {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	/* Flex to fill the fixed-height frame; the frame (not the list) owns the
+	   height, so header-row changes can't re-center the modal (I146,
+	   refines I96). */
+	flex: 1;
+	min-height: 0;
+	overflow-y: auto;
+}
+
+.agent-client-session-history-item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 12px;
+	/* E: stable row height across Local (badge) and Agent (no badge) views. */
+	min-height: 56px;
+	/* D5: never let the flex column compress rows when the list overflows —
+	   otherwise a filtered (short) list renders taller rows than the
+	   unfiltered (overflowing) one. Natural height always; overflow scrolls. */
+	flex-shrink: 0;
+	background: var(--background-secondary);
+	border-radius: var(--radius-m);
+	border: 1px solid var(--background-modifier-border);
+}
+
+.agent-client-session-history-item-content {
+	flex: 1;
+	min-width: 0;
+}
+
+.agent-client-session-history-item-title {
+	font-weight: 500;
+	font-size: 14px;
+	color: var(--text-normal);
+	margin-bottom: 4px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.agent-client-session-history-item-metadata {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.agent-client-session-history-item-timestamp {
+	font-size: 12px;
+	color: var(--text-muted);
+}
+
+.agent-client-session-history-item-cwd {
+	font-size: 12px;
+	color: var(--text-muted);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	min-width: 0;
+	flex: 1;
+}
+
+.agent-client-session-history-item-actions {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	flex-shrink: 0;
+	margin-left: 12px;
+}
+
+/* C: separates the destructive Delete icon from the constructive actions
+   (spatial cue, not color — red/green-safe). */
+.agent-client-session-history-action-divider {
+	width: 1px;
+	align-self: stretch;
+	margin: 4px 2px;
+	background: var(--background-modifier-border);
+}
+
+.agent-client-session-history-action-icon {
+	width: 24px;
+	height: 24px;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: var(--radius-s);
+	cursor: pointer;
+	color: var(--text-muted);
+	transition: all 0.2s;
+}
+
+.agent-client-session-history-action-icon:hover {
+	background: var(--background-modifier-hover);
+	color: var(--text-normal);
+}
+
+.agent-client-session-history-action-icon svg {
+	width: 16px;
+	height: 16px;
+}
+
+.agent-client-session-history-restore-icon:hover {
+	color: var(--text-accent);
+}
+
+.agent-client-session-history-fork-icon:hover {
+	color: var(--text-accent);
+}
+
+.agent-client-session-history-edit-icon:hover {
+	color: var(--text-accent);
+}
+
+.agent-client-session-history-loading,
+.agent-client-session-history-empty,
+.agent-client-session-history-error {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	/* Fill the flex frame so empty / loading / error occupy the same space as
+	   the list (I96 + I146). */
+	flex: 1;
+	min-height: 0;
+	text-align: center;
+	color: var(--text-muted);
+}
+
+.agent-client-session-history-error-text {
+	color: var(--text-error);
+	margin-bottom: 12px;
+}
+
+.agent-client-session-history-retry-button {
+	padding: 6px 12px;
+	background: var(--interactive-accent);
+	color: var(--text-on-accent);
+	border: none;
+	border-radius: var(--radius-s);
+	cursor: pointer;
+}
+
+.agent-client-session-history-load-more {
+	margin-top: 16px;
+	text-align: center;
+}
+
+.agent-client-session-history-load-more-button {
+	padding: 8px 16px;
+	background: var(--background-secondary);
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--radius-s);
+	cursor: pointer;
+	font-size: 14px;
+	color: var(--text-normal);
+}
+
+.agent-client-session-history-load-more-button:hover {
+	background: var(--background-modifier-hover);
+}
+
+.agent-client-session-history-load-more-button:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+/* Debug mode manual input form */
+.agent-client-session-history-debug {
+	margin-bottom: 16px;
+	padding: 12px;
+	background: var(--background-secondary);
+	border-radius: var(--radius-m);
+	border: 1px dashed var(--text-muted);
+}
+
+.agent-client-session-history-debug h3 {
+	margin: 0 0 12px 0;
+	font-size: 14px;
+	color: var(--text-muted);
+}
+
+.agent-client-session-history-debug-group {
+	margin-bottom: 10px;
+}
+
+.agent-client-session-history-debug-group label {
+	display: block;
+	margin-bottom: 4px;
+	font-size: 12px;
+	color: var(--text-muted);
+}
+
+.agent-client-session-history-debug-input {
+	width: 100%;
+	padding: 6px 8px;
+	font-size: 13px;
+	font-family: var(--font-monospace);
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--radius-s);
+	background: var(--background-primary);
+}
+
+.agent-client-session-history-debug-actions {
+	display: flex;
+	gap: 8px;
+	margin-top: 12px;
+}
+
+.agent-client-session-history-debug-button {
+	padding: 6px 12px;
+	font-size: 13px;
+	border-radius: var(--radius-s);
+	cursor: pointer;
+	background: var(--interactive-accent);
+	color: var(--text-on-accent);
+	border: none;
+}
+
+.agent-client-session-history-debug-button:hover {
+	background: var(--interactive-accent-hover);
+}
+
+.agent-client-session-history-debug-separator {
+	margin: 16px 0;
+	border: none;
+	border-top: 1px solid var(--background-modifier-border);
+}
+
+/* Local sessions banner */
+.agent-client-session-history-local-banner {
+	padding: 8px 12px;
+	margin-bottom: 12px;
+	background: var(--background-secondary);
+	border-radius: var(--radius-s);
+	font-size: 12px;
+	color: var(--text-muted);
+	border-left: 3px solid var(--interactive-accent);
+}
+
+/* Warning banner for agents that don't support restoration */
+.agent-client-session-history-warning-banner {
+	padding: 8px 12px;
+	margin-bottom: 12px;
+	background: var(--background-secondary);
+	border-radius: var(--radius-s);
+	border-left: 3px solid var(--text-warning);
+}
+
+.agent-client-session-history-warning-banner p {
+	margin: 0;
+	color: var(--text-muted);
+	font-size: 12px;
+}
+
+/* Delete button */
+.agent-client-session-history-delete-icon {
+	color: var(--text-muted);
+}
+
+.agent-client-session-history-delete-icon:hover {
+	color: var(--text-error);
+}
+
+/* Confirm delete modal */
+.agent-client-confirm-delete-message {
+	margin-bottom: 8px;
+}
+
+.agent-client-confirm-delete-warning {
+	color: var(--text-muted);
+	font-size: var(--font-ui-small);
+	margin-bottom: 16px;
+}
+
+.agent-client-confirm-delete-buttons {
+	display: flex;
+	justify-content: flex-end;
+	gap: 8px;
+}
+
+/* Confirm close (multiple tabs) modal */
+.agent-client-confirm-close-message {
+	margin-bottom: 8px;
+}
+
+.agent-client-confirm-close-warning {
+	color: var(--text-muted);
+	font-size: var(--font-ui-small);
+	margin-bottom: 16px;
+}
+
+.agent-client-confirm-close-buttons {
+	display: flex;
+	justify-content: flex-end;
+	gap: 8px;
+}
+
+/* Confirm reset (Obsidian system prompt) modal */
+.agent-client-confirm-reset-message {
+	margin-bottom: 8px;
+}
+
+.agent-client-confirm-reset-warning {
+	color: var(--text-muted);
+	font-size: var(--font-ui-small);
+	margin-bottom: 16px;
+}
+
+.agent-client-confirm-reset-buttons {
+	display: flex;
+	justify-content: flex-end;
+	gap: 8px;
+}
+
+/* Edit title modal */
+.agent-client-edit-title-input {
+	width: 100%;
+	margin-bottom: 16px;
+}
+
+.agent-client-edit-title-buttons {
+	display: flex;
+	justify-content: flex-end;
+	gap: 8px;
+}
+
+/* Change directory modal */
+.agent-client-change-dir-description {
+	color: var(--text-muted);
+	font-size: var(--font-ui-small);
+	margin-bottom: 12px;
+}
+
+.agent-client-change-dir-input-row {
+	display: flex;
+	gap: 8px;
+	margin-bottom: 16px;
+}
+
+.agent-client-change-dir-input {
+	flex: 1;
+}
+
+/* Agent cwd banner (shown when working outside vault) */
+.agent-client-cwd-banner {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	padding: 6px 12px;
+	font-size: var(--font-ui-smaller);
+	color: var(--text-muted);
+}
+
+.agent-client-cwd-banner-icon {
+	flex-shrink: 0;
+}
+
+.agent-client-cwd-banner-icon svg {
+	width: 14px;
+	height: 14px;
+}
+
+.agent-client-cwd-banner-path {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.agent-client-change-dir-buttons {
+	display: flex;
+	justify-content: flex-end;
+	gap: 8px;
+}
+
+/* ===== Code Block Chat View ===== */
+/* TODO(code-block): Styles for future code block chat view */
+.agent-client-code-block-container {
+	display: flex;
+	flex-direction: column;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--radius-m);
+	background: var(--background-primary);
+	overflow: hidden;
+}
+
+.agent-client-code-block-content {
+	display: flex;
+	flex-direction: column;
+	padding: 8px;
+}
+
+.agent-client-code-block-status {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 4px 8px;
+	background: var(--background-secondary);
+	border-radius: var(--radius-s);
+	margin-bottom: 4px;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+.agent-client-code-block-status-actions {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	flex-wrap: wrap;
+}
+
+.agent-client-code-block-messages {
+	max-height: 400px;
+	overflow-y: auto;
+	margin-bottom: 8px;
+}
+
+/* ===== Tab Bar (Multi-Session) ===== */
+
+.agent-client-tab-bar {
+	display: flex;
+	align-items: center;
+	border-bottom: 1px solid var(--background-modifier-border);
+	background-color: var(--background-secondary);
+	min-height: 32px;
+	flex-shrink: 0;
+}
+
+.agent-client-tab-bar-scroll {
+	display: flex;
+	flex: 1;
+	overflow-x: auto;
+	overflow-y: hidden;
+	scrollbar-width: none; /* Firefox */
+	min-width: 0;
+}
+
+.agent-client-tab-bar-scroll::-webkit-scrollbar {
+	display: none;
+}
+
+/* Single tab */
+.agent-client-tab {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	padding: 4px 8px;
+	cursor: pointer;
+	white-space: nowrap;
+	font-size: var(--font-ui-small);
+	color: var(--text-muted);
+	border-right: 1px solid var(--background-modifier-border);
+	flex-shrink: 0;
+	user-select: none;
+	transition: background-color 0.1s ease;
+}
+
+.agent-client-tab:hover {
+	background-color: var(--background-modifier-hover);
+}
+
+/* Active tab — blends with content area (Obsidian convention) */
+.agent-client-tab-active {
+	background-color: var(--background-primary);
+	color: var(--text-normal);
+}
+
+/* Tab label */
+.agent-client-tab-label {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 160px;
+}
+
+/* Active tab label — greedy: show the full title, capped to the visible strip
+   width via --ac-active-label-max (set at runtime in TabBar; floors to 160px
+   in the resolver, 320px fallback before the first measure). Full title + close
+   button stay visible; longer-than-leaf titles fall back to ellipsis + tooltip.
+   See [[Greedy active tab label]]. */
+.agent-client-tab-active .agent-client-tab-label {
+	max-width: var(--ac-active-label-max, 320px);
+}
+
+/* Tab close button — Obsidian convention: visible on active, hover on others */
+.agent-client-tab-close {
+	display: none;
+	align-items: center;
+	justify-content: center;
+	width: 24px;
+	height: 24px;
+	flex-shrink: 0;
+	border-radius: var(--radius-s);
+}
+
+.agent-client-tab-close:hover {
+	background-color: var(--background-modifier-hover);
+}
+
+.agent-client-tab-close svg {
+	width: 16px;
+	height: 16px;
+}
+
+.agent-client-tab-active .agent-client-tab-close {
+	display: flex;
+}
+
+.agent-client-tab:hover .agent-client-tab-close {
+	display: flex;
+}
+
+/* + button and chevron */
+.agent-client-tab-bar-add,
+.agent-client-tab-bar-chevron {
+	flex-shrink: 0;
+	width: 28px;
+	height: 28px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.agent-client-tab-bar-add svg,
+.agent-client-tab-bar-chevron svg {
+	width: 14px;
+	height: 14px;
+}
+
+/* ===== Tab State Icons (Colorblind-Safe) ===== */
+
+.agent-client-tab-state-icon {
+	flex-shrink: 0;
+	font-size: 10px;
+	line-height: 1;
+	width: 14px;
+	text-align: center;
+}
+
+.agent-client-tab-state-ready {
+	color: var(--interactive-accent);
+}
+
+.agent-client-tab-state-busy {
+	color: var(--interactive-accent);
+	animation: agent-client-spin 1s linear infinite;
+}
+
+.agent-client-tab-state-permission {
+	color: var(--color-orange);
+	animation: agent-client-pulse 1.5s ease-in-out infinite;
+}
+
+.agent-client-tab-state-error {
+	color: var(--color-red);
+}
+
+.agent-client-tab-state-disconnected {
+	color: var(--text-faint);
+}
+
+@keyframes agent-client-spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes agent-client-pulse {
+	0%,
+	100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.4;
+	}
+}
+
+/* Drag feedback */
+.agent-client-tab[draggable="true"]:active {
+	opacity: 0.6;
+}
+
+/* ===== Tab Error Boundary ===== */
+
+.agent-client-tab-error {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	flex: 1;
+	gap: 8px;
+	padding: 24px;
+	color: var(--text-muted);
+}
+
+.agent-client-tab-error-icon {
+	font-size: 32px;
+	opacity: 0.6;
+}
+
+.agent-client-tab-error-title {
+	font-size: var(--font-ui-medium);
+	font-weight: var(--font-semibold);
+	color: var(--text-normal);
+}
+
+.agent-client-tab-error-message {
+	font-size: var(--font-ui-small);
+	color: var(--text-muted);
+	max-width: 300px;
+	text-align: center;
+	word-break: break-word;
+}
+
+.agent-client-tab-error-retry {
+	margin-top: 8px;
+}
+
+/* Settings-import (cross-plugin migration) */
+.agent-client-import-notice {
+	cursor: pointer;
+}
+.agent-client-import-agents {
+	margin: 0.5em 0;
+	padding-left: 1.2em;
+}
+.agent-client-import-relink {
+	color: var(--text-warning);
+}
+.agent-client-import-buttons {
+	display: flex;
+	gap: 8px;
+	justify-content: flex-end;
+	margin-top: 1em;
+}
+
+/* I72 — recoverable-history affordance: shown when a restored tab has a
+   persisted sessionId but its local message file is missing. Lets the user
+   reload the conversation from the agent (replay) instead of seeing a silent
+   blank panel. Theme-variable colors only — no fixed red/green. */
+.agent-client-recoverable-history {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+	margin: 8px 12px;
+	padding: 8px 12px;
+	font-size: var(--font-ui-smaller);
+	color: var(--text-muted);
+	background-color: var(--background-secondary);
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--radius-s);
+}
+
+.agent-client-recoverable-history-text {
+	flex: 1 1 auto;
+}
+
+.agent-client-recoverable-history-button {
+	flex: 0 0 auto;
+	cursor: pointer;
+}
+
+.agent-client-recoverable-history-button:disabled {
+	cursor: default;
+	opacity: 0.6;
+}
+
+/* Header ↻ Reload button: spin the icon while a reload is in progress
+   (Agent Console Reload Control — reuses the agent-client-spin keyframes). */
+.agent-client-reload-spinning svg {
+	animation: agent-client-spin 1s linear infinite;
+}
+
+/* ===== Session History Search ===== */
+.agent-client-session-history-search {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-bottom: 12px;
+}
+
+.agent-client-session-history-search-input {
+	flex: 1;
+	padding: 6px 10px;
+	font-size: 14px;
+	border-radius: var(--radius-s);
+	border: 1px solid var(--background-modifier-border);
+	background: var(--background-primary);
+	color: var(--text-normal);
+}
+
+.agent-client-session-history-search-status {
+	font-size: 12px;
+	color: var(--text-muted);
+	white-space: nowrap;
+}
+
+.agent-client-session-history-item-snippet {
+	margin-top: 4px;
+	font-size: 12px;
+	line-height: 1.4;
+	color: var(--text-muted);
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.agent-client-session-history-item-snippet-match {
+	background: var(--text-highlight-bg);
+	color: var(--text-normal);
+	border-radius: var(--radius-s);
+	padding: 0 2px;
+}
+
+/* I96: pin the session-history modal size so it doesn't resize/re-center
+   as search filters the results. */
+.agent-client-session-history-modal {
+	width: 600px;
+	max-width: 90vw;
+	/* Fixed frame height so toggling source / "This vault only" / the search
+	   hint can't change total height and re-center the modal (I146). */
+	height: min(78vh, 640px);
+}
+
+/* Modal body as a flex column: the list fills the remaining space and the
+   header rows (toggle, sync affordance, search, filter) no longer grow the
+   frame (I146, refines I96). */
+.agent-client-session-history-modal .modal-content {
+	display: flex;
+	flex-direction: column;
+	min-height: 0;
+}
+
+.agent-client-session-history-react-root {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	min-height: 0;
+}
+
+/* Shared search-term highlight (title + snippet). */
+.agent-client-session-history-match {
+	background: var(--text-highlight-bg);
+	color: var(--text-normal);
+	border-radius: var(--radius-s);
+	padding: 0 2px;
+}
+
+/* Raw payload fallback for generic tool calls (no diff / terminal block) */
+.agent-client-tool-call-raw-payload {
+	margin-top: 8px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.agent-client-tool-call-raw-label {
+	font-size: 11px;
+	font-weight: var(--font-semibold);
+	color: var(--text-muted);
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	margin-bottom: 2px;
+}
+
+.agent-client-tool-call-raw-content {
+	margin: 0;
+	padding: 8px 12px;
+	background-color: var(--background-primary-alt);
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--radius-s);
+	font-family: var(--font-monospace);
+	font-size: 12px;
+	line-height: 1.5;
+	white-space: pre-wrap;
+	word-break: break-word;
+	overflow-x: auto;
+	user-select: text;
+}
+
+/* ===== Shared Links Bubble (header link aggregator) =====
+ *
+ * Icon button left of the reload button that aggregates every link the agent
+ * shared in the active tab. Always visible; greyed/disabled when there are no
+ * links (spec D3). The unique-link count is shown as a macOS-app-icon-style
+ * corner badge; the badge gets the accent color when >=1 link points at a file
+ * the agent created this session. The new/old distinction in the popover is
+ * conveyed by grouping + section labels, never color alone — colorblind-safe
+ * per user-profile. See [[Shared Links Bubble]] spec.
+ */
+.acp-shared-links-button {
+	position: relative;
+}
+
+.acp-shared-links-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.acp-shared-links-button--disabled {
+	opacity: 0.4;
+	cursor: default;
+	pointer-events: none;
+}
+
+.acp-shared-links-badge {
+	position: absolute;
+	bottom: -2px;
+	right: -2px;
+	min-width: 14px;
+	height: 14px;
+	padding: 0 4px;
+	box-sizing: border-box;
+	border-radius: 7px;
+	font-size: 9px;
+	font-weight: 700;
+	line-height: 14px;
+	text-align: center;
+	color: var(--text-muted);
+	background-color: var(--background-modifier-border);
+	pointer-events: none;
+}
+
+.acp-shared-links-badge--accent {
+	color: var(--text-on-accent);
+	background-color: var(--interactive-accent);
+}
+
+/* ==========================================================================
+   Quick Prompts — toolbar launcher + ephemeral contextual chips row
+   See [[Agent Console Quick Prompts and Workflows]].
+   ========================================================================== */
+
+/* Zap launcher in the composer toolbar (leftmost). A clickable-icon button,
+   so it stays reachable even while the composer is locked/queued. */
+.agent-client-quick-prompt-launcher {
+	flex: 0 0 auto;
+	/* Negate the clickable-icon's internal left padding (--size-2-3 = 6px) so the
+	   zap GLYPH — not the button box — aligns to the composer text inset (under
+	   the placeholder), per spec § Three surfaces "toolbar zap → composer
+	   text-left". The actions row's 12px padding already lands the button box at
+	   the textarea's 12px text inset; this shifts the padded glyph back onto it. */
+	margin-left: calc(-1 * var(--size-2-3));
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--text-muted);
+}
+.agent-client-quick-prompt-launcher:hover {
+	color: var(--text-normal);
+}
+
+/* Owns the left/right split in the composer toolbar actions row: pushes the
+   dropdowns + send button to the right while the zap launcher (and optional
+   usage %) stay text-left. Always rendered, so the split is independent of the
+   conditional usage indicator (which only renders for usage-reporting agents). */
+.agent-client-toolbar-spacer {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+/* Ephemeral chips row, directly above the composer box. Aligns to the
+   box-border edge (the context-strip / `+` reference); the toolbar zap aligns
+   to the composer text-left — two references, different containers. The row is
+   not rendered at all when no prompts match (empty = no row). */
+.agent-client-quick-prompt-bar {
+	display: flex;
+	flex-wrap: nowrap;
+	/* Clip horizontal overflow only (the width-aware cap already display:none's
+	   chips that don't fit); overflow-y stays visible so a focused chip's
+	   :focus-visible ring isn't clipped top/bottom. overflow-clip-margin gives
+	   the ring a few px of bleed at the row's left/right edges too. */
+	/* No clipping: the width-aware cap display:none's overflow chips, so nothing
+	   overflows horizontally — and clipping (any axis) cut focused chips' rings.
+	   Small padding keeps the leftmost/rightmost ring off any ancestor clip. */
+	overflow: visible;
+	gap: var(--size-2-2);
+	align-items: center;
+	margin-bottom: var(--size-2-2);
+	/* No left padding: the chip's left edge sits on the same rail as the
+	   context-strip pin / box edge (QP-I20). Right padding keeps a focus-ring
+	   margin; the row is overflow:visible so the leftmost ring isn't clipped. */
+	padding: 2px 4px 2px 0;
+}
+
+.agent-client-quick-prompt-chip {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--size-2-1);
+	padding: var(--size-2-1) var(--size-2-3);
+	font-size: var(--font-ui-smaller);
+	line-height: 1.4;
+	color: var(--text-normal);
+	background-color: var(--background-secondary);
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--radius-s);
+	cursor: pointer;
+	white-space: nowrap;
+	/* Readable rounded-rect chips (spec § Screen mocks) — never compress to stubs
+	   in a narrow leaf (QP-I05); the visible count is trimmed in JS instead.
+	   Ellipsis caps a single long label. */
+	flex: 0 0 auto;
+	max-width: 16em;
+	overflow: hidden;
+}
+/* Folded out of the single-line row by the width-aware cap (QP-I05). */
+.agent-client-quick-prompt-chip-folded {
+	display: none;
+}
+.agent-client-quick-prompt-chip:hover {
+	color: var(--text-normal);
+	background-color: var(--background-modifier-hover);
+}
+
+.agent-client-quick-prompt-chip-label {
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/* `newTab` marker (↩) — the prompt fires into a fresh tab. */
+.agent-client-quick-prompt-chip-newtab {
+	display: inline-flex;
+	align-items: center;
+	color: var(--text-muted);
+}
+.agent-client-quick-prompt-chip-newtab svg {
+	width: var(--icon-xs);
+	height: var(--icon-xs);
+}
+/* `{{selection}}` marker — the prompt needs a selection before it'll send. */
+.agent-client-quick-prompt-chip-selection {
+	color: var(--text-muted);
+	font-size: var(--font-ui-smaller);
+}
+
+/* Disabled-in-place (current-tab chip while a message is queued). Distinguished
+   by shape (lock glyph) + reduced opacity — color-vision-safe, no red/green. */
+.agent-client-quick-prompt-chip-disabled,
+.agent-client-quick-prompt-chip-disabled:hover {
+	opacity: 0.5;
+	cursor: not-allowed;
+	color: var(--text-muted);
+	background-color: var(--background-secondary);
+}
+
+.agent-client-quick-prompt-chip-lock {
+	display: inline-flex;
+	align-items: center;
+}
+.agent-client-quick-prompt-chip-lock svg {
+	width: var(--icon-xs);
+	height: var(--icon-xs);
+}
+
+/* "+N" overflow — folds the rest of the resting set into a ! search. */
+.agent-client-quick-prompt-more {
+	flex: 0 0 auto;
+	padding: var(--size-2-1) var(--size-2-3);
+	font-size: var(--font-ui-smaller);
+	line-height: 1.4;
+	color: var(--text-muted);
+	background: transparent;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--radius-s);
+	cursor: pointer;
+}
+.agent-client-quick-prompt-more:hover {
+	color: var(--text-normal);
+	background-color: var(--background-modifier-hover);
+}
+
+/* Per-row markers in the composer ! dropdown (↗ new-tab, { } selection). */
+.agent-client-quick-prompt-row-marker {
+	color: var(--text-faint);
+	font-size: var(--font-ui-smaller);
+}
+
+/* Modifier legend pinned to the bottom of the composer ! dropdown. */
+.agent-client-mention-dropdown-instructions {
+	flex: 0 0 auto;
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--size-4-2);
+	padding: var(--size-2-2) var(--size-2-3);
+	border-top: 1px solid var(--background-modifier-border);
+	background-color: var(--background-secondary);
+	color: var(--text-faint);
+	font-size: var(--font-ui-smaller);
+}
+
+/* The "create" row at the bottom of the ! launcher dropdown — distinguished by
+ * the muted + glyph; no separator line (harmonized with Obsidian's picker). */
+
+.agent-client-quick-prompt-create-icon {
+	margin-right: var(--size-2-2);
+	color: var(--text-muted);
+	font-weight: var(--font-bold);
+}
+
+/* ============================================================
+ * Collapsible agent sections (settings pane)
+ * Each built-in / custom agent's settings live in a <details>;
+ * the <summary> is the always-visible, clickable header.
+ * Native <details> gives keyboard toggle + aria-expanded for free.
+ * See spec: Agent Console Collapsible Agent Sections.
+ * ============================================================ */
+.agent-client-agent-section {
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--radius-s);
+	margin: 6px 0;
+}
+
+.agent-client-agent-section > .agent-client-agent-section-summary {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 10px 16px;
+	font-weight: var(--font-semibold, 600);
+	color: var(--text-normal);
+	cursor: pointer;
+	user-select: none;
+	list-style: none; /* Firefox: remove default disclosure marker */
+}
+
+/* Remove the default disclosure triangle (WebKit/Blink) — we draw our own. */
+.agent-client-agent-section
+	> .agent-client-agent-section-summary::-webkit-details-marker {
+	display: none;
+}
+
+/* Custom caret (CSS triangle) that rotates when the section is open. */
+.agent-client-agent-section > .agent-client-agent-section-summary::before {
+	content: "";
+	flex-shrink: 0;
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 5px 0 5px 7px;
+	border-color: transparent transparent transparent var(--text-muted);
+	transition: transform 0.15s ease;
+}
+
+.agent-client-agent-section[open]
+	> .agent-client-agent-section-summary::before {
+	transform: rotate(90deg);
+}
+
+.agent-client-agent-section > .agent-client-agent-section-summary:hover {
+	background-color: var(--background-modifier-hover);
+}
+
+.agent-client-agent-section
+	> .agent-client-agent-section-summary:focus-visible {
+	outline: 2px solid var(--interactive-accent);
+	outline-offset: -2px;
+}
+
+.agent-client-agent-section-name {
+	flex: 1;
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+/* Align body settings with the pane's 16px column (matches top-level
+ * setting-items so control right edges line up, and gives the controls room
+ * to breathe inside the bordered section). */
+.agent-client-agent-section > .setting-item {
+	padding-left: 16px;
+	padding-right: 16px;
+}
+
+/* Carried-over conversation preview (Agent-Portable Sessions) ---------------
+   Read-only block at the top of a freshly-switched tab showing the prior
+   conversation the new agent will receive as context on the first send. */
+.agent-client-carried-over {
+	margin: var(--size-4-2) var(--size-4-3);
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--radius-m);
+	background: var(--background-secondary);
+	font-size: var(--font-ui-smaller);
+}
+.agent-client-carried-over-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	padding: var(--size-4-2) var(--size-4-3);
+	background: transparent;
+	border: none;
+	box-shadow: none;
+	cursor: pointer;
+	color: var(--text-muted);
+	font-weight: var(--font-medium);
+}
+.agent-client-carried-over-title {
+	text-align: left;
+}
+.agent-client-carried-over-toggle {
+	color: var(--text-faint);
+}
+.agent-client-carried-over-body {
+	padding: 0 var(--size-4-3) var(--size-4-2);
+	max-height: 240px;
+	overflow-y: auto;
+	display: flex;
+	flex-direction: column;
+	gap: var(--size-4-1);
+}
+.agent-client-carried-over-turn {
+	display: flex;
+	gap: var(--size-4-2);
+	color: var(--text-muted);
+}
+.agent-client-carried-over-role {
+	flex: 0 0 auto;
+	font-weight: var(--font-medium);
+	color: var(--text-faint);
+}
+.agent-client-carried-over-text {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+/* Empty-state text (e.g. "No custom agents configured yet.") aligned to
+ * the settings column instead of sitting flush at the container edge. */
+.agent-client-empty-state {
+	margin: 0.75em 0;
+	padding-left: 16px;
+	padding-right: 16px;
+	color: var(--text-muted);
+}
+
+/* Obsidian system prompt — stack name/desc above a full-width control */
+.agent-client-hcb-fullwidth {
+	display: block;
+}
+.agent-client-hcb-fullwidth .setting-item-control {
+	width: 100%;
+	padding-top: var(--size-4-2);
+	justify-content: stretch;
+}
+.agent-client-hcb-fullwidth .setting-item-control textarea {
+	width: 100%;
+	resize: vertical;
+	font-family: var(--font-text);
+}
+
+/* Obsidian system prompt — read-only preview (visually distinct from editable boxes) */
+.agent-client-hcb-readonly {
+	background: var(--background-secondary);
+	color: var(--text-muted);
+	cursor: default;
+}
+
+/* Rename quick prompt modal (QP-I24): narrower modal + full-width input above the button row. */
+.modal.agent-client-rename-prompt-modal {
+	width: 420px;
+	min-width: unset;
+}
+
+.agent-client-rename-prompt-input {
+	width: 100%;
+	margin-bottom: var(--size-4-3);
+}
+
+/* First-creation folder prompt (Slice 6): narrower modal + full-width folder input. */
+.modal.agent-client-qp-folder-modal {
+	width: 480px;
+	min-width: unset;
+}
+
+.agent-client-qp-folder-desc {
+	color: var(--text-muted);
+	margin-top: 0;
+}
+
+.agent-client-qp-folder-input {
+	width: 100%;
+	margin-bottom: var(--size-4-3);
+}
+
+/* Zero-tab landing — the neutral screen shown when every tab is closed and an
+   agent is available (the no-agent case renders the shared getting-started
+   shell). The composer stays docked at the BOTTOM (its usual tab position);
+   the center block (message + actions) sits on the UPPER-THIRD line per the
+   rule-of-thirds composition tenet — a ::before/::after flex 1:2 spacer pair. */
+.agent-client-zero-tab-landing {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.agent-client-zero-tab-landing-center {
+	flex: 1;
+	min-height: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+/* Rule of thirds: 1 unit of space above, 2 below → content on the upper third. */
+.agent-client-zero-tab-landing-center::before {
+	content: "";
+	flex: 1;
+}
+.agent-client-zero-tab-landing-center::after {
+	content: "";
+	flex: 2;
+}
+
+.agent-client-zero-tab-landing-content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: var(--size-4-3);
+	text-align: center;
+	padding: 0 16px;
+}
+
+.agent-client-zero-tab-landing-message {
+	margin: 0;
+	color: var(--text-muted);
+}
+
+.agent-client-zero-tab-landing-actions {
+	display: flex;
+	flex-direction: column;
+	gap: var(--size-4-2);
+	align-items: center;
+}
+
+/* ============================================================
+   MCP OAuth prompt surfacing (sign-in Notice, inline banner,
+   re-authenticate modal). See MCP OAuth Prompt Surfacing spec.
+   ============================================================ */
+
+.agent-client-mcp-auth-notice-title {
+	font-weight: 600;
+	margin-bottom: 4px;
+}
+
+.agent-client-mcp-auth-notice-host {
+	color: var(--text-muted);
+	font-size: var(--font-ui-smaller);
+	margin-bottom: 8px;
+}
+
+.agent-client-mcp-auth-notice-buttons {
+	display: flex;
+	gap: 8px;
+	margin-bottom: 8px;
+}
+
+.agent-client-mcp-auth-notice-queue {
+	color: var(--text-muted);
+	font-size: var(--font-ui-smaller);
+	margin-bottom: 6px;
+}
+
+.agent-client-mcp-auth-notice-hint {
+	color: var(--text-faint);
+	font-size: var(--font-ui-smaller);
+}
+
+.agent-client-mcp-auth-suggestion-note {
+	color: var(--text-muted);
+	font-size: var(--font-ui-smaller);
+}
+
+.agent-client-mcp-auth-banner {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 10px 12px;
+	margin-top: 6px;
+	border: 1px solid var(--background-modifier-border);
+	border-left: 3px solid var(--color-yellow);
+	border-radius: var(--radius-s);
+	background: var(--background-secondary);
+}
+
+.agent-client-mcp-auth-banner-text {
+	flex: 1;
+	min-width: 0;
+}
+
+.agent-client-mcp-auth-banner-title {
+	font-weight: 600;
+	margin-bottom: 2px;
+}
+
+.agent-client-mcp-auth-banner-detail {
+	color: var(--text-muted);
+	font-size: var(--font-ui-smaller);
+}
+
+.agent-client-mcp-auth-banner > button {
+	flex-shrink: 0;
+}
+
+/* ============================================================
+   A2UI surfaces (agent-emitted interactive prompts, buttons-v0)
+   Native theming only — agent-supplied styling is ignored by design.
+   ============================================================ */
+
+.agent-client-a2ui-surface {
+	margin: var(--size-4-2) 0;
+	padding: var(--size-4-2);
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--radius-m);
+	background: var(--background-secondary);
+}
+
+.agent-client-a2ui-row {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: var(--size-4-2);
+	align-items: center;
+}
+
+.agent-client-a2ui-column {
+	display: flex;
+	flex-direction: column;
+	gap: var(--size-4-2);
+	align-items: stretch;
+}
+
+.agent-client-a2ui-card {
+	display: flex;
+	flex-direction: column;
+	gap: var(--size-4-2);
+	padding: var(--size-4-3);
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--radius-s);
+	background: var(--background-primary);
+}
+
+.agent-client-a2ui-text {
+	color: var(--text-normal);
+	font-size: var(--font-ui-small);
+	white-space: pre-wrap;
+}
+
+.agent-client-a2ui-divider {
+	width: 100%;
+	margin: var(--size-2-2) 0;
+	border: none;
+	border-top: 1px solid var(--background-modifier-border);
+}
+
+.agent-client-a2ui-button {
+	/* Real <button>: platform owns focus ring + Enter/Space activation. */
+	cursor: pointer;
+}
+
+.agent-client-a2ui-button:disabled {
+	cursor: default;
+	opacity: 0.6;
+}
+
+/* Answered surface: chosen button keeps emphasis (mod-cta), others fade. */
+.agent-client-a2ui-button-chosen:disabled {
+	opacity: 1;
+}
+
+.agent-client-a2ui-button-muted:disabled {
+	opacity: 0.35;
+}
+
+.agent-client-a2ui-inert-reason {
+	color: var(--text-muted);
+	font-size: var(--font-ui-smaller);
+	margin-top: var(--size-2-2);
+}
+
+.agent-client-a2ui-action-details {
+	margin: var(--size-2-1) 0 0;
+	font-size: var(--font-ui-smaller);
+	color: var(--text-muted);
+}
+
+/* Smoke findings 2026-07-16 (rounds 1+2): the Selected message hugged the
+   bubble's bottom edge, and round 2 flagged the asymmetry — more space above
+   the summary line than below the disclosure. Keep the gap between summary
+   and disclosure tight (margin above) and give the bottom clear breathing
+   room (padding below). */
+.agent-client-a2ui-action-message {
+	padding-bottom: var(--size-4-3);
+}
+
+/* A2UI-I04: align the "Selected: …" action bubble's bordered box to the
+   assistant surface boundary (16px) instead of the default 8px user-bubble
+   margin, so the answer card lines up under the button card that produced it.
+   Scoped to action-message bubbles by the `agent-client-message-a2ui-action`
+   modifier class, which MessageBubble applies from
+   `deriveA2uiActionMessageView` — ordinary user messages keep the 8px inset.
+
+   I179: this was originally scoped by the `:has` pseudo-class, which Obsidian's
+   plugin review lints as a performance risk (broad selector invalidation). The
+   class carries the same three-class specificity (0,3,0) at the same position in
+   the cascade, so the rendered result is unchanged. Do not reintroduce `:has`
+   here — the tracked-CSS guard in src/__tests__/styles-css-syntax.test.ts fails
+   the build on it. */
+.agent-client-message-renderer.agent-client-message-user.agent-client-message-a2ui-action {
+	margin-left: 16px;
+	margin-right: 16px;
+}
+
+.agent-client-a2ui-action-details summary {
+	cursor: pointer;
+}
+
+.agent-client-a2ui-action-envelope {
+	overflow-x: auto;
+	padding: var(--size-4-1);
+	background: var(--background-primary-alt);
+	border-radius: var(--radius-s);
+	font-size: var(--font-ui-smaller);
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+/* Declarative settings (Obsidian 1.13): platform gives page rows
+   (mod-navigable) a background transition but no :hover trigger, while
+   action rows (mod-action) do hover — make our tab consistent. Scoped to
+   our groups; idempotent if Obsidian later adds the same rule. */
+@media (hover: hover) {
+	.agent-client-settings-group .setting-item.mod-navigable:hover {
+		background-color: var(--background-modifier-hover);
+	}
+}

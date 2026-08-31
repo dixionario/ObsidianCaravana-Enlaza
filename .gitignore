@@ -1,0 +1,17 @@
+# Estado efimero de Obsidian: cambia por ventana/equipo y causa conflictos.
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache/
+.trash/
+
+# Configuracion privada o dependiente de cada plugin/equipo.
+.obsidian/plugins/*/data.json
+
+# Archivos temporales del sistema y registros de dialogo.
+*.log
+.DS_Store
+Thumbs.db
+desktop.ini
+*.tmp
+*.bak
+~$*
