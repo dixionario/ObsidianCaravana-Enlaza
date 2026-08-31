@@ -42,3 +42,8 @@ El 31 de agosto de 2026 se eligió el repositorio de GitHub
 vault. Antes de cada publicación se auditan secretos, credenciales, bases de
 datos y archivos efímeros de Obsidian. El repositorio remoto no sustituye la
 copia local canónica ni el respaldo completo del 28 de agosto.
+
+El primer respaldo se publicó ese mismo día en la rama `main`: 146 archivos
+versionados en el commit inicial `9378ecf`. Se excluyen la sesión visual de
+Obsidian, caché, papelera, logs y los `data.json` privados de plugins. El remoto
+es privado y la rama local quedó enlazada con `origin/main`.
