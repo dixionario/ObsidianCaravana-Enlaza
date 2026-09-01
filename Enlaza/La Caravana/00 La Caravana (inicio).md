@@ -1,10 +1,17 @@
 ---
 tipo: indice
 estado: ACTIVO
-actualizado: 2026-08-31
+actualizado: 2026-09-01
 ---
 
 # La Caravana
+
+## Cambios técnicos recientes
+
+- [[60 Sistema tecnico/Resumen de verificaciones de identidad 2026-09-01]]
+- [[60 Sistema tecnico/Acceso directo a conversaciones desde Mensajes 2026-09-01]]
+- [[60 Sistema tecnico/Estadisticas de Comunidad y cumplimiento de misiones 2026-09-01]]
+- [[60 Sistema tecnico/Panel de entregas compacto, paginado y KE 2026-08-31]] — métricas por misión, redes y rapidez añadidas el 2026-09-01.
 
 Empresa y plataforma del lado creador y audiencia: contenido, cultura, turismo, entretenimiento, expediciones, comunidad y formación. Es hermana estratégica de ENLAZA, que concentra el lado comercial B2B; ninguna está subordinada a la otra.
 
